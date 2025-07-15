@@ -12,3 +12,8 @@ conda env create -f environment.yml
 conda activate credit-fraud-detection
 ```
 
+- to run the pipeline
+```
+python -m scripts.run_pipeline
+```
+
