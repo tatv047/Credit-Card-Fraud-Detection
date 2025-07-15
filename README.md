@@ -7,4 +7,8 @@
 ```
 conda env create -f environment.yml
 ```
+2. Activate teh env
+```
+conda activate credit-fraud-detection
+```
 
