@@ -2,7 +2,7 @@ name : credit-fraud-detection
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
+  - python
   - numpy
   - pandas
   - scikit-learn
@@ -12,9 +12,8 @@ dependencies:
   - catboost
   - lightgbm
   - requests
-  - pip
   - joblib
   - optuna
-  - kagglehub=0.3.12
+  - kagglehub
   - ipykernel
 
