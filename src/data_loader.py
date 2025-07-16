@@ -17,14 +17,23 @@ def load_data():
     os.makedirs("./data/processed",exist_ok = True)
     print("->'data' folder present/created")
 
-    #store the data
     src_path = './data/raw/creditcard.csv'
+    if not os.path.exists(src_path):
+        shutil.copy(
+            os.path.join(mlg_ulb_creditcardfraud_path, 'creditcard.csv'),
+            src_path
+        )
+        print('-> Data stored in working directory.')
+    else:
+        print("-> File already exists...")
+
+    #store the data
+    
     shutil.copy(
         os.path.join(mlg_ulb_creditcardfraud_path,'creditcard.csv'),
         src_path
     )
-    print('-> Data stored in working directory.')
-
+    
     return src_path
 
 

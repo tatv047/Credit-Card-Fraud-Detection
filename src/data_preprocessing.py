@@ -1,9 +1,16 @@
 import pandas as pd 
+import os
 
 def preprocess_data(data_path):
 
     # load the data
     df = pd.read_csv(data_path)
+    if os.path.exists("./data/processed/train.csv") and os.path.exists("./data/processed/test.csv"):
+        print("-> Train/test files already exist. Skipping preprocessing...")
+        train_data = pd.read_csv("./data/processed/train.csv")
+        test_data = pd.read_csv("./data/processed/test.csv")
+        return train_data, test_data
+
     print("-> raw data loaded... ")
 
 
