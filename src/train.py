@@ -2,7 +2,15 @@ from catboost import CatBoostClassifier # type: ignore
 import os
 
 def train_model(train_data):
+    model_path = './outputs/models/catboost_model.cbm'
 
+    if os.path.exists(model_path):
+        print(f"-> Model already exists at {model_path}. Loading it instead of retraining...")
+        model = CatBoostClassifier()
+        model.load_model(model_path)
+        return model
+
+    # if no model exists
     y_train = train_data['Class']
     X_train = train_data.drop('Class',axis = 1)
 
@@ -31,7 +39,6 @@ def train_model(train_data):
     print("-> Parameters of the 'CatBoost' model..")
     print(params)
 
-    model_path = './outputs/models/catboost_model.cbm'
     if model_path:
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
         model.save_model(model_path,format="cbm")
