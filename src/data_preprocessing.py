@@ -86,8 +86,8 @@ def preprocess_data(data_path):
     test_data["Class"] = y_test
 
     # Save to CSV files
-    train_data.reset_index(drop=True).to_csv("./data/processed/train.csv", index=False)
-    test_data.reset_index(drop=True).to_csv("./data/processed/test.csv", index=False)
+    train_data.to_csv("./data/processed/train.csv", index=False)
+    test_data.to_csv("./data/processed/test.csv", index=False)
     print("-> Saved train.csv and test.csv under ./data/processed/ ")
 
     return train_data,test_data

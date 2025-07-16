@@ -3,4 +3,4 @@ notes/
 src/__pycache__
 scripts/__pycache__
 catboost_info/
-notebooks/rough.ipynb
+**/CCFD.ipynb

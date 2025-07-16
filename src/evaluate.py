@@ -11,7 +11,7 @@ def evaluate_model(model, test_data,save_fig = True,save_report = True):
     y_test = test_data['Class']
     X_test = test_data.drop('Class', axis=1)
 
-    threshold = 0.1110
+    threshold = 0.09090869
     # Predict using probability + threshold
     y_probs = model.predict_proba(X_test)[:, 1]
     y_test_pred = (y_probs >= threshold).astype(int)

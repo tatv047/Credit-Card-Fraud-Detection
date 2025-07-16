@@ -1,48 +1,50 @@
-from catboost import CatBoostClassifier # type: ignore
+from xgboost import XGBClassifier # type: ignore
 import os
 
 def train_model(train_data):
-    model_path = './outputs/models/catboost_model.cbm'
+    model_path = './outputs/models/xgb_model.model'  # XGBoost uses .json or .model format
 
     if os.path.exists(model_path):
         print(f"-> Model already exists at {model_path}. Loading it instead of retraining...")
-        model = CatBoostClassifier()
+        model = XGBClassifier()
         model.load_model(model_path)
         return model
 
-    # if no model exists
+    # If no model exists
     y_train = train_data['Class']
-    X_train = train_data.drop('Class',axis = 1)
+    X_train = train_data.drop('Class', axis=1)
 
     neg = y_train.value_counts()[0]
     pos = y_train.value_counts()[1]
-    pos_weight = neg/pos
+    pos_weight = neg / pos
 
-    # parameters of the model
+    # parameters of the model (change this block as needed)
     params = {
-                'iterations': 249,
-                'depth': 9,
-                'learning_rate': 0.10365129915403434,
-                'l2_leaf_reg': 5.6721319452291885,
-                'border_count': 170,
-                'class_weights': [1, pos_weight],
-                'random_state': 42,
-                'verbose': 0
-                # 'task_type': 'GPU',
-                # 'devices': '0'
-            }
-    print("-> Model training started...")
-    model = CatBoostClassifier(**params)
-    model.fit(X_train,y_train)
+        'n_estimators': 225,
+        'max_depth': 8,
+        'learning_rate': 0.2540831362105696,
+        'subsample': 0.7114496210011669,
+        'colsample_bytree': 0.7677641543248914,
+        'min_child_weight': 3,
+        'scale_pos_weight': pos_weight,
+        'random_state': 42,
+        'n_jobs': -1,
+        'verbosity': 0
+        # 'tree_method': 'hist',
+        # 'device': 'cuda'
+    }
 
+    print("-> Model training started...")
+    model = XGBClassifier(**params)
+    model.fit(X_train, y_train)
+    
     print("-> Model training done...")
-    print("-> Parameters of the 'CatBoost' model..")
+    print("-> Parameters of the 'XGBoost' model..")
     print(params)
 
     if model_path:
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
-        model.save_model(model_path,format="cbm")
+        model.save_model(model_path)
         print(f"-> Model saved to {model_path}")
 
-    return model 
-
+    return model
